@@ -3,7 +3,7 @@
 namespace Immeyti\VWallet;
 
 use Illuminate\Support\ServiceProvider;
-use Immeyti\VWallet\Commands\VWalletCommand;
+use Immeyti\VWallet\Commands\WalletCommand;
 
 class VWalletServiceProvider extends ServiceProvider
 {
@@ -11,14 +11,10 @@ class VWalletServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/v-wallet.php' => config_path('v-wallet.php'),
+                __DIR__ . '/../config/wallet.php' => config_path('wallet.php'),
             ], 'config');
 
-            $this->publishes([
-                __DIR__ . '/../resources/views' => base_path('resources/views/vendor/v-wallet'),
-            ], 'views');
-
-            $migrationFileName = 'create_v_wallet_table.php';
+            $migrationFileName = 'create_wallet_table.php';
             if (! $this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
                     __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
@@ -26,16 +22,14 @@ class VWalletServiceProvider extends ServiceProvider
             }
 
             $this->commands([
-                VWalletCommand::class,
+                WalletCommand::class,
             ]);
         }
-
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'v-wallet');
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/v-wallet.php', 'v-wallet');
+        $this->mergeConfigFrom(__DIR__ . '/../config/wallet.php', 'wallet');
     }
 
     public static function migrationFileExists(string $migrationFileName): bool

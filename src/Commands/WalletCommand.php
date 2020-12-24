@@ -4,7 +4,7 @@ namespace Immeyti\VWallet\Commands;
 
 use Illuminate\Console\Command;
 
-class VWalletCommand extends Command
+class WalletCommand extends Command
 {
     public $signature = 'v-wallet';
 

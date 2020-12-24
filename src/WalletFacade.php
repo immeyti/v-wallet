@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \Immeyti\VWallet\VWallet
  */
-class VWalletFacade extends Facade
+class WalletFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'v-wallet';
+        return 'wallet';
     }
 }

@@ -4,4 +4,5 @@ namespace Immeyti\VWallet;
 
 class VWallet
 {
+    
 }
