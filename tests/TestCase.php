@@ -4,7 +4,12 @@ namespace Immeyti\VWallet\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Immeyti\VWallet\VWalletServiceProvider;
+use Immeyti\VWallet\WalletServiceProvider;
+use Spatie\EventSourcing\EventSerializers\EventSerializer;
+use Spatie\EventSourcing\EventSerializers\JsonEventSerializer;
+use Spatie\EventSourcing\EventSourcingServiceProvider;
+use Spatie\EventSourcing\Snapshots\EloquentSnapshotRepository;
+use Spatie\EventSourcing\StoredEvents\Repositories\EloquentStoredEventRepository;
 
 class TestCase extends Orchestra
 {
@@ -17,12 +22,15 @@ class TestCase extends Orchestra
                 return 'Immeyti\\VWallet\\Database\\Factories\\'.class_basename($modelName).'Factory';
             }
         );
+
+        $this->app->bind(EventSerializer::class, JsonEventSerializer::class);
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            VWalletServiceProvider::class,
+            WalletServiceProvider::class,
+            EventSourcingServiceProvider::class
         ];
     }
 
@@ -35,9 +43,18 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_v_wallet_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        $eventSourcingConfig = include_once __DIR__.'/../config/event-sourcing.php';
+
+        $app['config']->set('event-sourcing', $eventSourcingConfig);
+
+
+        include_once __DIR__.'/../database/migrations/create_wallets_table.php';
+        (new \CreateWalletTable())->up();
+
+        include_once __DIR__.'/migrations/create_snapshots_table.php';
+        (new \CreateSnapshotsTable())->up();
+
+        include_once __DIR__.'/migrations/create_stored_events_table.php';
+        (new \CreateStoredEventsTable())->up();
     }
 }

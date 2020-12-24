@@ -10,14 +10,13 @@
     "authors": [
         {
             "name": "immeyti",
-            "email": "mehdi.samirakh68@gmail.com",
-            "homepage": "https://spatie.be",
-            "role": "Developer"
+            "email": "mehdi.samirakh68@gmail.com"
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "illuminate/contracts": "^8.0"
+        "php": "^7.4|^8.0",
+        "illuminate/contracts": "^8.0",
+        "spatie/laravel-event-sourcing": "^4.7"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -45,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Immeyti\\VWallet\\VWalletServiceProvider"
+                "Immeyti\\VWallet\\WalletServiceProvider"
             ],
             "aliases": {
-                "VWallet": "Immeyti\\VWallet\\VWalletFacade"
+                "Wallet": "Immeyti\\VWallet\\WalletFacade"
             }
         }
     },
