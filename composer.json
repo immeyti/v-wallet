@@ -1,0 +1,67 @@
+{
+    "name": "immeyti/v-wallet",
+    "description": "A virtual wallet",
+    "keywords": [
+        "immeyti",
+        "v-wallet"
+    ],
+    "homepage": "https://github.com/immeyti/v-wallet",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "immeyti",
+            "email": "mehdi.samirakh68@gmail.com",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/contracts": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Immeyti\\VWallet\\": "src",
+            "Immeyti\\VWallet\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Immeyti\\VWallet\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Immeyti\\VWallet\\VWalletServiceProvider"
+            ],
+            "aliases": {
+                "VWallet": "Immeyti\\VWallet\\VWalletFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/spatie"
+        },
+        {
+            "type": "other",
+            "url": "https://spatie.be/open-source/support-us"
+        }
+    ]
+}
