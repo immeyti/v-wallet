@@ -38,4 +38,8 @@ class Wallet extends Model
         return self::whereUserId($userId)->whereCoin($coin)->exists();
     }
 
+    public static function getWithAttr(array $attr)
+    {
+        return self::where($attr)->get();
+    }
 }

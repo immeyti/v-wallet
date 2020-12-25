@@ -59,4 +59,9 @@ class Wallet
 
         return self::getWallet($wallet->uuid);
     }
+
+    public static function getWallets(array $attr)
+    {
+        return WalletModel::getWithAttr($attr);
+    }
 }

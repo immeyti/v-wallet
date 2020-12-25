@@ -88,4 +88,19 @@ class WalletTest extends TestCase
         Wallet::deposit($wallet, 10, []);
         Wallet::withdraw($wallet, 20, []);
     }
+
+    /** @test */
+    public function it_should_return_all_wallets_of_an_user_id()
+    {
+        $userId = 1;
+        $firstCoin = 'BTC';
+        $secondCoin = 'USD';
+
+        Wallet::create($userId, $firstCoin);
+        Wallet::create($userId, $secondCoin);
+
+        $wallets = Wallet::getWallets(['user_id' => $userId]);
+
+        $this->assertCount(2, $wallets);
+    }
 }
