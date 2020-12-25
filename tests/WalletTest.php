@@ -6,6 +6,7 @@ namespace Immeyti\VWallet\Tests;
 
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
 use Immeyti\VWallet\Exceptions\WalletExists;
 use \Immeyti\VWallet\Wallet;
 
@@ -17,8 +18,6 @@ class WalletTest extends TestCase
     /** @test */
     public function it_should_create_a_wallet()
     {
-        //$this->withoutExceptionHandling();
-
         $userId = 1;
         $coin = 'BTC';
 
@@ -75,5 +74,18 @@ class WalletTest extends TestCase
             'balance' => 5,
             'blocked_balance' => 0
         ]);
+    }
+
+    /** @test */
+    public function it_should_return_an_exception_when_withdrawing_an_account_that_inventory_shortage()
+    {
+        $this->expectException(SufficientFundsToWithdrawAmountException::class);
+
+        $userId = 1;
+        $coin = 'BTC';
+
+        $wallet = Wallet::create($userId, $coin);
+        Wallet::deposit($wallet, 10, []);
+        Wallet::withdraw($wallet, 20, []);
     }
 }

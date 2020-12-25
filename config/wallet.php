@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'bar' => 'foo'
+    'balance_limit' => 0
 ];
