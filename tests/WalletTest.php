@@ -22,7 +22,7 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        \Immeyti\VWallet\Wallet::create($userId, $coin);
+        Wallet::create($userId, $coin);
 
         $this->assertDatabaseHas('wallets', [
            'user_id' => $userId,
@@ -40,8 +40,8 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        \Immeyti\VWallet\Wallet::create($userId, $coin);
-        \Immeyti\VWallet\Wallet::create($userId, $coin);
+        Wallet::create($userId, $coin);
+        Wallet::create($userId, $coin);
     }
 
     /** @test */
