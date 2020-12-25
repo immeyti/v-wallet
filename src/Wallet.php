@@ -4,17 +4,43 @@ namespace Immeyti\VWallet;
 
 use Illuminate\Support\Str;
 use Immeyti\VWallet\Aggregates\WalletAggregate;
+use Immeyti\VWallet\Models\Wallet as WalletModel;
 
 class Wallet
 {
-    public static function create($userId, $coin)
+    /**
+     * @param int $userId
+     * @param string $coin
+     * @return WalletModel|null
+     * @throws Exceptions\WalletExists
+     */
+    public static function create(int $userId, string $coin): ?WalletModel
     {
         $newUuid = Str::uuid()->toString();
-
         WalletAggregate::retrieve($newUuid)
             ->createWallet($userId, $coin)
             ->persist();
 
-        //return Wallet::first($uuid);
+        return self::getWallet($newUuid);
+    }
+
+    /**
+     * @param WalletModel $wallet
+     * @param float $amount
+     * @param array $meta
+     * @return WalletModel|null
+     */
+    public static function deposit(WalletModel $wallet, float $amount, array $meta): WalletModel
+    {
+        WalletAggregate::retrieve($wallet->uuid)
+            ->deposit($wallet, $amount, $meta)
+            ->persist();
+
+        return self::getWallet($wallet->uuid);
+    }
+
+    public static function getWallet($uuid)
+    {
+        return WalletModel::uuid($uuid);
     }
 }

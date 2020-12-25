@@ -4,6 +4,7 @@
 namespace Immeyti\VWallet\Projectors;
 
 
+use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
 use Immeyti\VWallet\Models\Wallet;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
@@ -18,5 +19,18 @@ final class WalletProjector extends Projector
             'uuid' => $aggregateUuid
         ]);
 
+    }
+
+    /**
+     * @param Deposited $event
+     * @param string $aggregateUuid
+     */
+    public function onDeposited(Deposited $event, string $aggregateUuid)
+    {
+        $wallet = Wallet::uuid($aggregateUuid);
+
+        $wallet->balance += $event->amount;
+
+        $wallet->save();
     }
 }

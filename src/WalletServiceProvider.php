@@ -4,6 +4,8 @@ namespace Immeyti\VWallet;
 
 use Illuminate\Support\ServiceProvider;
 use Immeyti\VWallet\Commands\WalletCommand;
+use Spatie\EventSourcing\StoredEvents\EventSubscriber;
+use Spatie\EventSourcing\StoredEvents\Repositories\EloquentStoredEventRepository;
 
 class WalletServiceProvider extends ServiceProvider
 {
@@ -30,7 +32,6 @@ class WalletServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/wallet.php', 'wallet');
-        //$this->mergeConfigFrom(__DIR__ . '/../config/event-sourcing.php', 'event-sourcing');
     }
 
     public static function migrationFileExists(string $migrationFileName): bool
