@@ -30,7 +30,7 @@ class Wallet
      * @param array $meta
      * @return WalletModel|null
      */
-    public static function deposit(WalletModel $wallet, float $amount, array $meta): WalletModel
+    public static function deposit(WalletModel $wallet, float $amount, array $meta = []): WalletModel
     {
         WalletAggregate::retrieve($wallet->uuid)
             ->deposit($wallet, $amount, $meta)
@@ -51,7 +51,7 @@ class Wallet
      * @return WalletModel|null
      * @throws Exceptions\SufficientFundsToWithdrawAmountException
      */
-    public static function withdraw(WalletModel $wallet, int $amount, array $meta): WalletModel
+    public static function withdraw(WalletModel $wallet, int $amount, array $meta = []): WalletModel
     {
         WalletAggregate::retrieve($wallet->uuid)
             ->withdraw($wallet, $amount, $meta)

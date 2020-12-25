@@ -41,10 +41,10 @@ class TestCase extends Orchestra
 
         $app['config']->set('event-sourcing', $eventSourcingConfig);*/
 
-        include_once __DIR__.'/../database/migrations/create_wallets_table.php';
+        include_once __DIR__ . '/../database/migrations/create_wallets_table.php.stub';
         (new \CreateWalletTable())->up();
 
-        include_once __DIR__.'/../database/migrations/create_transactions_table.php';
+        include_once __DIR__ . '/../database/migrations/create_transactions_table.php.stub';
         (new \CreatTransactionTable())->up();
 
         include_once __DIR__.'/migrations/create_snapshots_table.php';

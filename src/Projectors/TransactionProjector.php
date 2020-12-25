@@ -4,8 +4,8 @@
 namespace Immeyti\VWallet\Projectors;
 
 
-use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\Withdrew;
+use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Models\Transaction;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
@@ -34,8 +34,13 @@ class TransactionProjector extends Projector
         Transaction::createWithAttr([
             'amount' => $event->amount,
             'meta' => $event->meta,
-            'type' => Transaction::TYPE_DEPOSIT,
+            'type' => Transaction::TYPE_WITHDRAW,
             'uuid' => $aggregateUuid
         ]);
+    }
+
+    public function onStartingEventReplay()
+    {
+        Transaction::truncate();
     }
 }

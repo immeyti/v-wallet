@@ -4,10 +4,10 @@
 namespace Immeyti\VWallet\Projectors;
 
 
+use Immeyti\VWallet\Models\Wallet;
+use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
-use Immeyti\VWallet\Events\Withdrew;
-use Immeyti\VWallet\Models\Wallet;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class WalletProjector extends Projector
@@ -46,5 +46,10 @@ class WalletProjector extends Projector
         $wallet->balance -= $event->amount;
 
         $wallet->save();
+    }
+
+    public function onStartingEventReplay()
+    {
+        Wallet::truncate();
     }
 }
