@@ -12,18 +12,19 @@ class WalletServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/wallet.php' => config_path('wallet.php'),
+                __DIR__ . '/../config/event-sourcing.php' => config_path('event-sourcing.php'),
             ], 'config');
 
             $migrationFileName = 'create_wallets_table.php';
             if (! $this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
-                    __DIR__ . "/../database/migrations/{$migrationFileName}" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
+                    __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
                 ], 'migrations');
             }
             $migrationFileName = 'create_transactions_table.php';
             if (! $this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
-                    __DIR__ . "/../database/migrations/{$migrationFileName}" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
+                    __DIR__ . "/../database/migrations/{$migrationFileName}.stub" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
                 ], 'migrations');
             }
 
