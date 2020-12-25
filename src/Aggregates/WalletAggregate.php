@@ -4,13 +4,13 @@
 namespace Immeyti\VWallet\Aggregates;
 
 
+use Immeyti\VWallet\Models\Wallet;
+use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
-use Immeyti\VWallet\Events\Withdrew;
-use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
 use Immeyti\VWallet\Exceptions\WalletExists;
-use Immeyti\VWallet\Models\Wallet;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
+use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
 
 final class WalletAggregate extends AggregateRoot
 {

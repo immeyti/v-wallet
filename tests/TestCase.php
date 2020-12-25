@@ -2,16 +2,10 @@
 
 namespace Immeyti\VWallet\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Artisan;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Immeyti\VWallet\WalletServiceProvider;
-use Spatie\EventSourcing\EventSerializers\EventSerializer;
-use Spatie\EventSourcing\EventSerializers\JsonEventSerializer;
+use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Spatie\EventSourcing\EventSourcingServiceProvider;
-use Spatie\EventSourcing\Projectionist;
-use Spatie\EventSourcing\StoredEvents\EventSubscriber;
-use Spatie\EventSourcing\StoredEvents\Repositories\StoredEventRepository;
 
 class TestCase extends Orchestra
 {

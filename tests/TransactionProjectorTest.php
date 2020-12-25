@@ -4,10 +4,10 @@
 namespace Immeyti\VWallet\Tests;
 
 
-use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Immeyti\VWallet\Models\Transaction;
 use Immeyti\VWallet\Wallet;
+use Immeyti\VWallet\Models\Transaction;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 
 class TransactionProjectorTest extends TestCase
 {

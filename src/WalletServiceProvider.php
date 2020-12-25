@@ -4,8 +4,6 @@ namespace Immeyti\VWallet;
 
 use Illuminate\Support\ServiceProvider;
 use Immeyti\VWallet\Commands\WalletCommand;
-use Spatie\EventSourcing\StoredEvents\EventSubscriber;
-use Spatie\EventSourcing\StoredEvents\Repositories\EloquentStoredEventRepository;
 
 class WalletServiceProvider extends ServiceProvider
 {
@@ -17,6 +15,12 @@ class WalletServiceProvider extends ServiceProvider
             ], 'config');
 
             $migrationFileName = 'create_wallets_table.php';
+            if (! $this->migrationFileExists($migrationFileName)) {
+                $this->publishes([
+                    __DIR__ . "/../database/migrations/{$migrationFileName}" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),
+                ], 'migrations');
+            }
+            $migrationFileName = 'create_transactions_table.php';
             if (! $this->migrationFileExists($migrationFileName)) {
                 $this->publishes([
                     __DIR__ . "/../database/migrations/{$migrationFileName}" => database_path('migrations/' . date('Y_m_d_His', time()) . '_' . $migrationFileName),

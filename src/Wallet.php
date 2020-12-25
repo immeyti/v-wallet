@@ -49,6 +49,7 @@ class Wallet
      * @param int $amount
      * @param array $meta
      * @return WalletModel|null
+     * @throws Exceptions\SufficientFundsToWithdrawAmountException
      */
     public static function withdraw(WalletModel $wallet, int $amount, array $meta): WalletModel
     {

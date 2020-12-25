@@ -4,12 +4,11 @@
 namespace Immeyti\VWallet\Tests;
 
 
-use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
-use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
-use Immeyti\VWallet\Exceptions\WalletExists;
 use \Immeyti\VWallet\Wallet;
+use Immeyti\VWallet\Exceptions\WalletExists;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
+use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
 
 
 class WalletTest extends TestCase
