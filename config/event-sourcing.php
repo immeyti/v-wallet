@@ -17,7 +17,8 @@ return [
      */
     'projectors' => [
         // App\Projectors\YourProjector::class
-        \Immeyti\VWallet\Projectors\WalletProjector::class
+        \Immeyti\VWallet\Projectors\WalletProjector::class,
+        \Immeyti\VWallet\Projectors\TransactionProjector::class
     ],
 
     /*

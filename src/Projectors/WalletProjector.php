@@ -10,7 +10,7 @@ use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Models\Wallet;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
-final class WalletProjector extends Projector
+class WalletProjector extends Projector
 {
     public function onWalletCreated(WalletCreated $event, string $aggregateUuid)
     {

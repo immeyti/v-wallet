@@ -6,6 +6,7 @@ namespace Immeyti\VWallet\Tests;
 
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
 use Immeyti\VWallet\Exceptions\WalletExists;
 use \Immeyti\VWallet\Wallet;
