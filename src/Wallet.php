@@ -43,4 +43,19 @@ class Wallet
     {
         return WalletModel::uuid($uuid);
     }
+
+    /**
+     * @param WalletModel $wallet
+     * @param int $amount
+     * @param array $meta
+     * @return WalletModel|null
+     */
+    public static function withdraw(WalletModel $wallet, int $amount, array $meta): WalletModel
+    {
+        WalletAggregate::retrieve($wallet->uuid)
+            ->withdraw($wallet, $amount, $meta)
+            ->persist();
+
+        return self::getWallet($wallet->uuid);
+    }
 }

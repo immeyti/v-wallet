@@ -59,4 +59,21 @@ class WalletTest extends TestCase
             'blocked_balance' => 0
         ]);
     }
+
+    /** @test */
+    public function it_should_withdraw_an_amount_to_the_wallet()
+    {
+        $userId = 1;
+        $coin = 'BTC';
+
+        $wallet = Wallet::create($userId, $coin);
+        Wallet::deposit($wallet, 10, []);
+        Wallet::withdraw($wallet, 5, []);
+
+        $this->assertDatabaseHas('wallets', [
+            'uuid' => $wallet->uuid,
+            'balance' => 5,
+            'blocked_balance' => 0
+        ]);
+    }
 }

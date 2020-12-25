@@ -6,6 +6,7 @@ namespace Immeyti\VWallet\Aggregates;
 
 use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
+use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Exceptions\WalletExists;
 use Immeyti\VWallet\Models\Wallet;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
@@ -19,12 +20,12 @@ final class WalletAggregate extends AggregateRoot
     private $walletIsBlocked = false;
 
     /**
-     * @param integer $userId
+     * @param int $userId
      * @param string $coin
      * @return $this
      * @throws WalletExists
      */
-    public function createWallet($userId, $coin)
+    public function createWallet(int $userId, string $coin)
     {
         if ($this->walletExists($userId, $coin))
             throw new WalletExists();
@@ -34,9 +35,28 @@ final class WalletAggregate extends AggregateRoot
         return $this;
     }
 
-    public function deposit($wallet, $amount, $meta)
+    /**
+     * @param Wallet $wallet
+     * @param float $amount
+     * @param array $meta
+     * @return $this
+     */
+    public function deposit(Wallet $wallet, float $amount, array $meta)
     {
         $this->recordThat(new Deposited($amount, $meta));
+
+        return $this;
+    }
+
+    /**
+     * @param Wallet $wallet
+     * @param float $amount
+     * @param array $meta
+     * @return $this
+     */
+    public function withdraw(Wallet $wallet, float $amount, array $meta)
+    {
+        $this->recordThat(new Withdrew($amount, $meta));
 
         return $this;
     }
