@@ -8,10 +8,14 @@ use Immeyti\VWallet\Wallet;
 
 trait HasWallet
 {
+    public function creatWallet($coin)
+    {
+        return Wallet::create($this->getKey(), $coin);
+    }
 
     public function getWallets()
     {
-        return Wallet::getWallets($this->getkey());
+        return Wallet::getWallets(['user_id' => $this->getkey()]);
     }
 
     public function balance($coin)
