@@ -5,15 +5,15 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/immeyti/v-wallet.svg?style=flat-square)](https://packagist.org/packages/immeyti/v-wallet)
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+v-wallet is in the beta stage now. it is not recommended to use in the production environment
 
-## Support us
+<!-- ## Support us -->
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-v-wallet-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-v-wallet-laravel)
+<!-- [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-v-wallet-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-v-wallet-laravel) -->
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+<!-- We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards). -->
 
 ## Installation
 
@@ -26,28 +26,20 @@ composer require immeyti/v-wallet
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Immeyti\VWallet\VWalletServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Immeyti\VWallet\WalletServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Immeyti\VWallet\VWalletServiceProvider" --tag="config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
+php artisan vendor:publish --provider="Immeyti\VWallet\WalletServiceProvider" --tag="config"
 ```
 
 ## Usage
 
-```php
-$v-wallet = new Immeyti\VWallet();
-echo $v-wallet->echoPhrase('Hello, Immeyti!');
-```
+You can use this package in two ways:
+- add the `Immeyti\VWallet\Traits\HasWallet` trait to the User model.
+- direct use of `Immeyti\VWallet\Wallet`.(actually, it should be a facade) 
 
 ## Testing
 
