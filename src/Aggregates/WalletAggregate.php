@@ -4,7 +4,7 @@
 namespace Immeyti\VWallet\Aggregates;
 
 
-use Immeyti\VWallet\Models\Wallet;
+use Immeyti\VWallet\Wallet;
 use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
@@ -82,7 +82,7 @@ final class WalletAggregate extends AggregateRoot
 
     private function walletExists(int $userId, string $coin)
     {
-        return Wallet::isExist($userId, $coin);
+        return \Immeyti\VWallet\Models\Wallet::isExist($userId, $coin);
     }
 
     private function hasSufficientFundsToWithdrawAmount($amount)

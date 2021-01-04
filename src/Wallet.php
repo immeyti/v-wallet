@@ -8,35 +8,49 @@ use Immeyti\VWallet\Models\Wallet as WalletModel;
 
 class Wallet
 {
+    public $walletModel = null;
+    private int $userId;
+    private string $coin;
+
+
+    public function __construct(int $userId, string $coin)
+    {
+        $this->userId = $userId;
+        $this->coin = $coin;
+
+        return $this->create($userId, $coin);
+    }
+
     /**
      * @param int $userId
      * @param string $coin
-     * @return WalletModel|null
+     * @return $this|null
      * @throws Exceptions\WalletExists
      */
-    public static function create(int $userId, string $coin): ?WalletModel
+    public function create(int $userId, string $coin): ?self
     {
         $newUuid = Str::uuid()->toString();
         WalletAggregate::retrieve($newUuid)
             ->createWallet($userId, $coin)
             ->persist();
 
-        return self::getWallet($newUuid);
+        $this->uuid = $newUuid;
+
+        return $this;
     }
 
     /**
-     * @param WalletModel $wallet
      * @param float $amount
      * @param array $meta
      * @return WalletModel|null
      */
-    public static function deposit(WalletModel $wallet, float $amount, array $meta = []): WalletModel
+    public function deposit(float $amount, array $meta = []): self
     {
-        WalletAggregate::retrieve($wallet->uuid)
-            ->deposit($wallet, $amount, $meta)
+        WalletAggregate::retrieve($this->uuid)
+            ->deposit($this, $amount, $meta)
             ->persist();
 
-        return self::getWallet($wallet->uuid);
+        return $this;
     }
 
     public static function getWallet($uuid)
@@ -45,19 +59,18 @@ class Wallet
     }
 
     /**
-     * @param WalletModel $wallet
      * @param int $amount
      * @param array $meta
      * @return WalletModel|null
      * @throws Exceptions\SufficientFundsToWithdrawAmountException
      */
-    public static function withdraw(WalletModel $wallet, int $amount, array $meta = []): WalletModel
+    public function withdraw(int $amount, array $meta = []): self
     {
-        WalletAggregate::retrieve($wallet->uuid)
-            ->withdraw($wallet, $amount, $meta)
+        WalletAggregate::retrieve($this->uuid)
+            ->withdraw($this, $amount, $meta)
             ->persist();
 
-        return self::getWallet($wallet->uuid);
+        return $this;
     }
 
     public static function getWallets(array $attr)

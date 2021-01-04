@@ -21,7 +21,7 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        Wallet::create($userId, $coin);
+        new Wallet($userId, $coin);
 
         $this->assertDatabaseHas('wallets', [
            'user_id' => $userId,
@@ -39,8 +39,8 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        Wallet::create($userId, $coin);
-        Wallet::create($userId, $coin);
+        new Wallet($userId, $coin);
+        new Wallet($userId, $coin);
     }
 
     /** @test */
@@ -49,8 +49,8 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        $wallet = Wallet::create($userId, $coin);
-        Wallet::deposit($wallet, 10, []);
+        $wallet = new Wallet($userId, $coin);
+        $wallet->deposit(10, []);
 
         $this->assertDatabaseHas('wallets', [
             'uuid' => $wallet->uuid,
@@ -65,9 +65,9 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        $wallet = Wallet::create($userId, $coin);
-        Wallet::deposit($wallet, 10, []);
-        Wallet::withdraw($wallet, 5, []);
+        $wallet = new Wallet($userId, $coin);
+        $wallet->deposit(10, []);
+        $wallet->withdraw(5, []);
 
         $this->assertDatabaseHas('wallets', [
             'uuid' => $wallet->uuid,
@@ -84,9 +84,9 @@ class WalletTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        $wallet = Wallet::create($userId, $coin);
-        Wallet::deposit($wallet, 10, []);
-        Wallet::withdraw($wallet, 20, []);
+        $wallet = new Wallet($userId, $coin);
+        $wallet->deposit(10, []);
+        $wallet->withdraw(20, []);
     }
 
     /** @test */
@@ -96,11 +96,19 @@ class WalletTest extends TestCase
         $firstCoin = 'BTC';
         $secondCoin = 'USD';
 
-        Wallet::create($userId, $firstCoin);
-        Wallet::create($userId, $secondCoin);
+        new Wallet($userId, $firstCoin);
+        new Wallet($userId, $secondCoin);
 
         $wallets = Wallet::getWallets(['user_id' => $userId]);
 
         $this->assertCount(2, $wallets);
+    }
+
+    /** @test */
+    public function it_should_return_an_wallet_object() 
+    {
+        $wallet = new Wallet(1, 'string');
+
+        $this->assertInstanceOf(Wallet::class, $wallet);
     }
 }
