@@ -3,7 +3,14 @@
     "description": "A virtual wallet",
     "keywords": [
         "immeyti",
-        "v-wallet"
+        "v-wallet",
+        "laravel-wallet",
+        "virtual",
+        "currency",
+        "credits",
+        "wallet",
+        "laravel-package",
+         "payments"
     ],
     "homepage": "https://github.com/immeyti/v-wallet",
     "license": "MIT",
