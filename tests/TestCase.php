@@ -52,5 +52,8 @@ class TestCase extends Orchestra
 
         include_once __DIR__.'/migrations/create_stored_events_table.php';
         (new \CreateStoredEventsTable())->up();
+
+        include_once __DIR__ . '/migrations/create_users_table.php';
+        (new \CreateUsersTable())->up();
     }
 }
