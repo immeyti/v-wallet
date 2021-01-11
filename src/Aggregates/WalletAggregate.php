@@ -3,14 +3,13 @@
 
 namespace Immeyti\VWallet\Aggregates;
 
-
-use Immeyti\VWallet\Wallet;
-use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
-use Immeyti\VWallet\Exceptions\WalletExists;
-use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
+use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
+use Immeyti\VWallet\Exceptions\WalletExists;
+use Immeyti\VWallet\Wallet;
+use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
 final class WalletAggregate extends AggregateRoot
 {
@@ -32,8 +31,9 @@ final class WalletAggregate extends AggregateRoot
      */
     public function createWallet(int $userId, string $coin)
     {
-        if ($this->walletExists($userId, $coin))
+        if ($this->walletExists($userId, $coin)) {
             throw new WalletExists();
+        }
 
         $this->recordThat(new WalletCreated($userId, $coin));
 
@@ -67,8 +67,9 @@ final class WalletAggregate extends AggregateRoot
      */
     public function withdraw(Wallet $wallet, float $amount, array $meta)
     {
-        if (! $this->hasSufficientFundsToWithdrawAmount($amount))
+        if (! $this->hasSufficientFundsToWithdrawAmount($amount)) {
             throw new SufficientFundsToWithdrawAmountException();
+        }
 
         $this->recordThat(new Withdrew($amount, $meta));
 

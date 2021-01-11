@@ -3,9 +3,7 @@
 
 namespace Immeyti\VWallet\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
-use Immeyti\VWallet\Events\WalletCreated;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -19,7 +17,6 @@ use Ramsey\Uuid\Uuid;
 class Wallet extends Model
 {
     protected $guarded = ['id'];
-
 
     public static function createWithAttr(array $attr): self
     {

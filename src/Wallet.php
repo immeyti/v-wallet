@@ -12,18 +12,18 @@ class Wallet
     public $walletModel = null;
     public string $uuid;
 
-
     public function __construct(int $userId = null, string $coin = null)
     {
-        if (is_null($userId) or is_null($coin))
+        if (is_null($userId) or is_null($coin)) {
             return $this;
+        }
 
         try {
             return $this->create($userId, $coin);
         } catch (WalletExists $e) {
             $this->uuid = self::firstWallet([
                 'user_id' => $userId,
-                'coin' => $coin
+                'coin' => $coin,
             ])->uuid;
 
             return $this;

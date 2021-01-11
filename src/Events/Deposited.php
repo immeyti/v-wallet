@@ -3,7 +3,6 @@
 
 namespace Immeyti\VWallet\Events;
 
-
 use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 
 class Deposited extends ShouldBeStored

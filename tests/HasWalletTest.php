@@ -2,13 +2,14 @@
 
 namespace Immeyti\VWallet\Tests;
 
-use Immeyti\VWallet\Tests\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Immeyti\VWallet\Tests\Models\User;
 
 class HasWalletTest extends TestCase
 {
-    use RefreshDatabase, InteractsWithExceptionHandling;
+    use RefreshDatabase;
+    use InteractsWithExceptionHandling;
 
     /** @test */
     public function it_should_create_a_wallet_for_user()
@@ -21,7 +22,7 @@ class HasWalletTest extends TestCase
             'user_id' => $user->id,
             'coin' => 'USD',
             'balance' => 0,
-            'active' => true
+            'active' => true,
         ]);
     }
 
@@ -38,7 +39,7 @@ class HasWalletTest extends TestCase
             'user_id' => $user->id,
             'coin' => 'USD',
             'balance' => 10,
-            'active' => true
+            'active' => true,
         ]);
     }
 
@@ -55,7 +56,7 @@ class HasWalletTest extends TestCase
             'user_id' => $user->id,
             'coin' => 'USD',
             'balance' => 5,
-            'active' => true
+            'active' => true,
         ]);
     }
 

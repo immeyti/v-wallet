@@ -2,9 +2,9 @@
 
 namespace Immeyti\VWallet\Tests;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Immeyti\VWallet\WalletServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Spatie\EventSourcing\EventSourcingServiceProvider;
 
 class TestCase extends Orchestra
@@ -14,7 +14,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            function($modelName) {
+            function ($modelName) {
                 return 'Immeyti\\VWallet\\Database\\Factories\\'.class_basename($modelName).'Factory';
             }
         );
@@ -24,7 +24,7 @@ class TestCase extends Orchestra
     {
         return [
             WalletServiceProvider::class,
-            EventSourcingServiceProvider::class
+            EventSourcingServiceProvider::class,
         ];
     }
 

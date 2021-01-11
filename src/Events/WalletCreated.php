@@ -4,7 +4,6 @@ namespace Immeyti\VWallet\Events;
 
 use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 
-
 class WalletCreated extends ShouldBeStored
 {
     public $userId;

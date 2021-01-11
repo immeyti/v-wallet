@@ -3,15 +3,14 @@
 
 namespace Immeyti\VWallet\Tests;
 
-
-use Immeyti\VWallet\Wallet;
-use Immeyti\VWallet\Models\Transaction;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Immeyti\VWallet\Models\Transaction;
 
 class TransactionProjectorTest extends TestCase
 {
-    use RefreshDatabase, InteractsWithExceptionHandling;
+    use RefreshDatabase;
+    use InteractsWithExceptionHandling;
 
     /** @test */
     public function it_should_store_deposit_and_withdraw_transaction()

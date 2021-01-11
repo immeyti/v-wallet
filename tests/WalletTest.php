@@ -3,17 +3,16 @@
 
 namespace Immeyti\VWallet\Tests;
 
-
 use \Immeyti\VWallet\Wallet;
-use Immeyti\VWallet\Exceptions\WalletExists;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Immeyti\VWallet\Exceptions\SufficientFundsToWithdrawAmountException;
-
+use Immeyti\VWallet\Exceptions\WalletExists;
 
 class WalletTest extends TestCase
 {
-    use RefreshDatabase, InteractsWithExceptionHandling;
+    use RefreshDatabase;
+    use InteractsWithExceptionHandling;
 
     /** @test */
     public function it_should_create_a_wallet()
@@ -28,7 +27,7 @@ class WalletTest extends TestCase
            'coin' => $coin,
            'balance' => 0,
            'blocked_balance' => 0,
-           'active' => true
+           'active' => true,
         ]);
     }
 
@@ -55,7 +54,7 @@ class WalletTest extends TestCase
         $this->assertDatabaseHas('wallets', [
             'uuid' => $wallet->uuid,
             'balance' => 10,
-            'blocked_balance' => 0
+            'blocked_balance' => 0,
         ]);
     }
 
@@ -72,7 +71,7 @@ class WalletTest extends TestCase
         $this->assertDatabaseHas('wallets', [
             'uuid' => $wallet->uuid,
             'balance' => 5,
-            'blocked_balance' => 0
+            'blocked_balance' => 0,
         ]);
     }
 

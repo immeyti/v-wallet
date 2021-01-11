@@ -3,9 +3,6 @@
 
 namespace Immeyti\VWallet\Traits;
 
-
-use Immeyti\VWallet\Wallet;
-
 trait HasWallet
 {
     public function createWallet($coin)
@@ -25,7 +22,6 @@ trait HasWallet
         $wallet = app('wallet', [$this->getKey(), $coin]);
 
         return $wallet->deposit($amount, $meta);
-
     }
 
     public function withdraw($coin, $amount, $meta = [])
@@ -33,6 +29,5 @@ trait HasWallet
         $wallet = app('wallet', [$this->getKey(), $coin]);
 
         return $wallet->withdraw($amount, $meta);
-
     }
 }

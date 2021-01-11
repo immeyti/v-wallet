@@ -3,23 +3,21 @@
 
 namespace Immeyti\VWallet\Projectors;
 
-
-use Immeyti\VWallet\Models\Wallet;
-use Immeyti\VWallet\Events\Withdrew;
 use Immeyti\VWallet\Events\Deposited;
 use Immeyti\VWallet\Events\WalletCreated;
+use Immeyti\VWallet\Events\Withdrew;
+use Immeyti\VWallet\Models\Wallet;
 use Spatie\EventSourcing\EventHandlers\Projectors\Projector;
 
 class WalletProjector extends Projector
 {
     public function onWalletCreated(WalletCreated $event, string $aggregateUuid)
     {
-       return Wallet::createWithAttr([
+        return Wallet::createWithAttr([
             'user_id' => $event->userId,
             'coin' => $event->coin,
-            'uuid' => $aggregateUuid
+            'uuid' => $aggregateUuid,
         ]);
-
     }
 
     /**
