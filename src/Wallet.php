@@ -4,21 +4,30 @@ namespace Immeyti\VWallet;
 
 use Illuminate\Support\Str;
 use Immeyti\VWallet\Aggregates\WalletAggregate;
+use Immeyti\VWallet\Exceptions\WalletExists;
 use Immeyti\VWallet\Models\Wallet as WalletModel;
 
 class Wallet
 {
     public $walletModel = null;
-    private int $userId;
-    private string $coin;
+    public string $uuid;
 
 
-    public function __construct(int $userId, string $coin)
+    public function __construct(int $userId = null, string $coin = null)
     {
-        $this->userId = $userId;
-        $this->coin = $coin;
+        if (is_null($userId) or is_null($coin))
+            return $this;
 
-        return $this->create($userId, $coin);
+        try {
+            return $this->create($userId, $coin);
+        } catch (WalletExists $e) {
+            $this->uuid = self::firstWallet([
+                'user_id' => $userId,
+                'coin' => $coin
+            ])->uuid;
+
+            return $this;
+        }
     }
 
     /**
@@ -73,8 +82,18 @@ class Wallet
         return $this;
     }
 
+    public function balance()
+    {
+        return self::firstWallet(['uuid' => $this->uuid])->refresh()->balance;
+    }
+
     public static function getWallets(array $attr)
     {
         return WalletModel::getWithAttr($attr);
+    }
+
+    public static function firstWallet(array $attr)
+    {
+        return WalletModel::firstWithAttr($attr);
     }
 }
