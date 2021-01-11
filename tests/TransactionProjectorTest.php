@@ -21,11 +21,11 @@ class TransactionProjectorTest extends TestCase
         $userId = 1;
         $coin = 'BTC';
 
-        $wallet = Wallet::create($userId, $coin);
-        Wallet::deposit($wallet, 10, []);
-        Wallet::withdraw($wallet, 2, []);
-        Wallet::withdraw($wallet, 2, []);
-        Wallet::deposit($wallet, 2, []);
+        $wallet = app('wallet', [$userId, $coin]);
+        $wallet->deposit(10, [])
+            ->withdraw(2, [])
+            ->withdraw(2, [])
+            ->deposit(2, []);
 
         $this->assertCount(4, Transaction::all());
     }

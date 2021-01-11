@@ -8,53 +8,31 @@ use Immeyti\VWallet\Wallet;
 
 trait HasWallet
 {
-    public function creatWallet($coin)
+    public function createWallet($coin)
     {
-        return Wallet::create($this->getKey(), $coin);
-    }
-
-    public function getWallets()
-    {
-        return Wallet::getWallets(['user_id' => $this->getkey()]);
+        return app('wallet', [$this->getKey(), $coin]);
     }
 
     public function balance($coin)
     {
-        $walletModel = Wallet::getWallets([
-            'user_id' => $this->getkey(),
-            'coin' => $coin
-        ]);
+        $wallet = app('wallet', [$this->getKey(), $coin]);
 
-        if (! $walletModel->count())
-            return 0;
-
-        return $walletModel->first()->balance;
+        return $wallet->balance();
     }
 
     public function deposit($coin, $amount, $meta = [])
     {
-        $walletModel = Wallet::getWallets([
-            'user_id' => $this->getkey(),
-            'coin' => $coin
-        ])->first();
+        $wallet = app('wallet', [$this->getKey(), $coin]);
 
-        if (! $walletModel)
-            $walletModel = Wallet::create($this->getkey(), $coin);
-
-
-        return Wallet::deposit($walletModel, $amount, $meta);
+        return $wallet->deposit($amount, $meta);
 
     }
 
     public function withdraw($coin, $amount, $meta = [])
     {
-        $walletModel = Wallet::getWallets([
-            'user_id' => $this->getkey(),
-            'coin' => $coin
-        ])->first();
+        $wallet = app('wallet', [$this->getKey(), $coin]);
 
-
-        return Wallet::withdraw($walletModel, $amount, $meta);
+        return $wallet->withdraw($amount, $meta);
 
     }
 }

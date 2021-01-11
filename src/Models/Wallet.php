@@ -42,4 +42,9 @@ class Wallet extends Model
     {
         return self::where($attr)->get();
     }
+
+    public static function firstWithAttr(array $attr)
+    {
+        return self::where($attr)->firstOrFail();
+    }
 }

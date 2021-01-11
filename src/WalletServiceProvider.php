@@ -37,6 +37,10 @@ class WalletServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/wallet.php', 'wallet');
+
+        $this->app->bind('wallet', function ($app, $params) {
+            return new Wallet($params[0], $params[1]);
+        });
     }
 
     public static function migrationFileExists(string $migrationFileName): bool
