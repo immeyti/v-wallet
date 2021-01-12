@@ -12,22 +12,27 @@ trait HasWallet
 
     public function balance($coin)
     {
-        $wallet = app('wallet', [$this->getKey(), $coin]);
+        $wallet = $this->firstOrCreateWallet($coin);
 
         return $wallet->balance();
     }
 
     public function deposit($coin, $amount, $meta = [])
     {
-        $wallet = app('wallet', [$this->getKey(), $coin]);
+        $wallet = $this->firstOrCreateWallet($coin);
 
         return $wallet->deposit($amount, $meta);
     }
 
     public function withdraw($coin, $amount, $meta = [])
     {
-        $wallet = app('wallet', [$this->getKey(), $coin]);
+        $wallet = $this->firstOrCreateWallet($coin);
 
         return $wallet->withdraw($amount, $meta);
+    }
+
+    public function firstOrCreateWallet($coin)
+    {
+        return app('wallet', [$this->getKey(), $coin]);
     }
 }

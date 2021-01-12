@@ -39,7 +39,11 @@ class WalletServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/wallet.php', 'wallet');
 
         $this->app->bind('wallet', function ($app, $params) {
-            return new Wallet($params[0], $params[1]);
+            if (count($params) < 2) {
+                return new Wallet();
+            } else {
+                return new Wallet($params[0], $params[1]);
+            }
         });
     }
 
