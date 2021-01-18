@@ -55,7 +55,7 @@ final class WalletAggregate extends AggregateRoot
 
     public function applyDeposited(Deposited $event)
     {
-        $this->balance += $event->amount;
+        $this->balance = bcadd($this->balance, $event->amount);
     }
 
     /**
@@ -78,7 +78,7 @@ final class WalletAggregate extends AggregateRoot
 
     public function applyWithdrew(Withdrew $event)
     {
-        $this->balance -= $event->amount;
+        $this->balance = bcsub($this->balance, $event->amount);
     }
 
     private function walletExists(int $userId, string $coin)
@@ -88,6 +88,6 @@ final class WalletAggregate extends AggregateRoot
 
     private function hasSufficientFundsToWithdrawAmount($amount)
     {
-        return $this->balance - $amount >= $this->balanceLimit;
+        return bccomp(bcsub($this->balance, $amount), $this->balanceLimit) !== -1;
     }
 }
