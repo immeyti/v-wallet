@@ -28,7 +28,7 @@ class WalletProjector extends Projector
     {
         $wallet = Wallet::uuid($aggregateUuid);
 
-        $wallet->balance += $event->amount;
+        $wallet->balance = bcadd($wallet->balance, $event->amount);
 
         $wallet->save();
     }
@@ -41,7 +41,7 @@ class WalletProjector extends Projector
     {
         $wallet = Wallet::uuid($aggregateUuid);
 
-        $wallet->balance -= $event->amount;
+        $wallet->balance = bcsub($wallet->balance, $event->amount);
 
         $wallet->save();
     }
